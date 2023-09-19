@@ -1,3 +1,3 @@
 # E-commerce
 
-Desenvolvimento de trabalho da discIplina de Programação WEB 
+Desenvolvimento de trabalho da disciplina de Programação WEB 
