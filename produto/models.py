@@ -8,3 +8,7 @@ class Produto(models.Model): # criação do modelo - TABELA DO BANCO
         upload_to='produto_imagem/%Y/&m/', blank=True, null=True)
     slug = models.SlugField(unique=True)
     preco = models.FloatField()
+
+    def __str__(self): # So para mostrar os nomes dos produtos :)
+        return self.nome
+
