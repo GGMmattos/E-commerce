@@ -1,2 +1,3 @@
 # E-commerce
- Trab prog web
+
+Desenvolvimento de trabalho da discplina de Programação WEB 
