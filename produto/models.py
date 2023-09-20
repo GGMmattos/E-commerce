@@ -2,6 +2,7 @@ from django.db import models
 from PIL import Image
 import os 
 from django.conf import settings
+from django.utils.text import slugify
 
 
 class Produto(models.Model): # criação do modelo - TABELA DO BANCO 
@@ -10,7 +11,7 @@ class Produto(models.Model): # criação do modelo - TABELA DO BANCO
     descricao_longa = models.TextField()
     imagem = models.ImageField(
         upload_to='produto_imagem/%Y/&m/', blank=True, null=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True, null=True)
     preco = models.FloatField()
 
     @staticmethod # pala ausência do self
@@ -34,6 +35,9 @@ class Produto(models.Model): # criação do modelo - TABELA DO BANCO
         )
 
     def save(self, *args, **kwargs):
+        if not self.slug:
+            slug = f'{slugify(self.nome)}-{self.pk}' #criação do slug - URL do produto
+            self.slug = slug
         super().save(*args, **kwargs)
 
         max_image_size = 800
