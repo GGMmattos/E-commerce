@@ -36,7 +36,7 @@ class Produto(models.Model): # criação do modelo - TABELA DO BANCO
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            slug = f'{slugify(self.nome)}-{self.pk}' #criação do slug - URL do produto
+            slug = f'{slugify(self.nome)}' #criação do slug - URL do produto
             self.slug = slug
         super().save(*args, **kwargs)
 
