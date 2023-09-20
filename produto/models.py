@@ -32,8 +32,6 @@ class Produto(models.Model): # criação do modelo - TABELA DO BANCO
             optimize=True,
             quality=50
         )
-#teste
-
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
