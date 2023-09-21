@@ -5,7 +5,7 @@ from .models import Produto
 
 class ProdutoAdmin (admin.ModelAdmin):
     list_display  = [
-        'nome', 'descricao_curta', 'preco',
+        'nome', 'descricao_curta', 'get_preco_formatado',
     ]
     
 admin.site.register(Produto, ProdutoAdmin)
