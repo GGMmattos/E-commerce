@@ -21,6 +21,9 @@ from django.conf.urls import static
 from home.views import index
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', index, name='index'), # TODO: a home será listada os produtos já ou tela de login?
+    path('perfil/', include('perfil.url')),
+    path('pedido/', include('pedido.url')),
     path('admin/', admin.site.urls),
+
 ] 
