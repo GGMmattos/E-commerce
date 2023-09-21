@@ -6,7 +6,7 @@ from django.utils.text import slugify
 
 
 class Produto(models.Model): # criação do modelo - TABELA DO BANCO 
-    nome = models.CharField(max_length=255) # TODO: Lembrar de colocar a qualidade de estoque 
+    nome = models.CharField(max_length=255) 
     descricao_curta = models.TextField(max_length=255)
     descricao_longa = models.TextField()
     imagem = models.ImageField(
@@ -14,6 +14,10 @@ class Produto(models.Model): # criação do modelo - TABELA DO BANCO
     slug = models.SlugField(unique=True, blank=True, null=True)
     preco = models.FloatField()
     estoque = models.IntegerField()
+
+    def get_preco_formatado(self):
+        return f'R$ {self.preco:.2f}'.replace('.', ',')
+    get_preco_formatado.short_description = 'Preço'
 
     @staticmethod # pala ausência do self
     def relize_image(img, new_width=800):
