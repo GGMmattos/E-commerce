@@ -6,13 +6,14 @@ from django.utils.text import slugify
 
 
 class Produto(models.Model): # criação do modelo - TABELA DO BANCO 
-    nome = models.CharField(max_length=255)
-    decricao_curta = models.TextField(max_length=255)
+    nome = models.CharField(max_length=255) # TODO: Lembrar de colocar a qualidade de estoque 
+    descricao_curta = models.TextField(max_length=255)
     descricao_longa = models.TextField()
     imagem = models.ImageField(
         upload_to='produto_imagem/%Y/&m/', blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
     preco = models.FloatField()
+    estoque = models.IntegerField()
 
     @staticmethod # pala ausência do self
     def relize_image(img, new_width=800):
@@ -40,7 +41,7 @@ class Produto(models.Model): # criação do modelo - TABELA DO BANCO
             self.slug = slug
         super().save(*args, **kwargs)
 
-        max_image_size = 800
+        max_image_size = 800 
 
         if self.imagem:
             self.relize_image(self.imagem, max_image_size)
