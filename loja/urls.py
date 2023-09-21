@@ -22,8 +22,9 @@ from home.views import index
 
 urlpatterns = [
     path('', index, name='index'), # TODO: a home será listada os produtos já ou tela de login?
-    path('perfil/', include('perfil.url')),
-    path('pedido/', include('pedido.url')),
+    path('produto/', include('produto.urls')),
+    path('perfil/', include('perfil.urls')),
+    path('pedido/', include('pedido.urls')),
     path('admin/', admin.site.urls),
 
 ] 
