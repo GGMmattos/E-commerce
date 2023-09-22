@@ -32,16 +32,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'produto',
+    'pedido',
+    'perfil',
+    'home',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'produto',
-    'pedido',
-    'perfil',
-    'home',
 ]
 
 MIDDLEWARE = [
@@ -74,16 +74,24 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'loja.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+DATABASES = { # TODO: foi modificado aqui
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -124,10 +132,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-
 STATICFILES_DIRS = [
-    os.path.join('templates/static')
+    os.path.join(BASE_DIR, 'templates/static')
 ]
 
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
