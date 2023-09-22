@@ -1,7 +1,15 @@
-{% load static %}
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.css'%}">
-<link rel="stylesheet" href="{% static 'assets/custom/css/style.css'%}">
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <header class="p-3 m-0 bg-black text-white flex justify-between items-center">
+        <div class="">Store</div>
+        <div class="flex gap-3">
+            <button class="bg-blue-600 p-1.5 rounded">Login</button>
+            <button class="bg-green-600 p-1.5 rounded">Register</button>
+        </div>
+    </header>
+</html>
