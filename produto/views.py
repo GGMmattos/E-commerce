@@ -7,9 +7,10 @@ from . import models
 
 # Create your views here.
 
-class ListaProdutos(ListView):
+class ListaProdutos(ListView): # Listagem dos produtos na home
     model =models.Produto
     template_name = 'produto/lista.html'
+    context_object_name = 'produtos'
 
 class DetalheProduto(View):
     def get(self, *args, **kwargs):

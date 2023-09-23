@@ -1,9 +1,15 @@
+{% load static %}
+
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.tailwindcss.com"></script>
         <title>{% block title %}{% endblock %}</title>
+
+        <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.css'%}">
+        <link rel="stylesheet" href="{% static 'assets/custom/css/style.css'%}">
+
     </head>
     <header class="p-3 m-0 bg-black text-white flex justify-between items-center">
         <div class="">Store</div>
