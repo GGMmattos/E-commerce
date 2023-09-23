@@ -12,10 +12,26 @@
 
     </head>
     <header class="p-3 m-0 bg-black text-white flex justify-between items-center">
-        <div class="">Store</div>
+        <div class="">Loja</div>
+        <div>
+            <input type="text" class="searchProduct rounded" placeholder="Buscar produto" />
+        </div>
         <div class="flex gap-3">
-            <button class="bg-blue-600 p-1.5 rounded">Login</button>
-            <button class="bg-green-600 p-1.5 rounded">Register</button>
+            <button class="bg-blue-600 p-1.5 rounded loginButton">Entrar</button>
+            <button class="bg-green-700 p-1.5 rounded">Cadastrar</button>
         </div>
     </header>
 </html>
+
+<style>
+    .loginButton {
+        background-color: #17a2b8;
+    }
+
+    .searchProduct {
+        width: 30vw;
+        height: 3vh;
+        color: black;
+        padding: 3px;
+    }
+</style>
