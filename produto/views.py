@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_list_or_404
+from django.shortcuts import render, redirect, get_list_or_404, reverse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views import View
@@ -16,7 +16,7 @@ class ListaProdutos(ListView): # Listagem dos produtos na home
     
 
 class DetalheProduto(DetailView):
-    model =models.Produto
+    model = models.Produto
     template_name = 'produto/detalhe.html'
     context_object_name = 'produto'
     slug_url_kwarg = 'slug'
@@ -24,30 +24,24 @@ class DetalheProduto(DetailView):
 
 class AdicionarAoCarrinho(View):
     def get(self, *args, **kwargs):
-    
-        http_referer = self.request.META['HTTP_REFERER'] # produto será adicionado ao carrinho e irá voltar a paggina anterior.(bate e volta)
-        produto_id = self.request.GET.get('id') #Verifica se o produto está cadastrado
-
-        produto = get_list_or_404(models.Produto, id=produto_id)
-
-        if produto.estoque < 1:
-            messages.error(
-               self.request,
-               'Estoque insuficiente' 
+        http_referer = self.request.META.get(
+            'HTTP_REFERER',
+            reverse('produto:lista')
             )
-            return redirect(http_referer)
+        produto_id = self.request.GET.get('id')
 
-        if not self.request.session.get('carrinho'):
-            self.request.session['carrinho'] = []
-            self.request.session.save()
+        if not produto_id:
+            messages.error(
+                self.request,
+                'produto não existe'
+            )
+            return redirect(http_referer) 
+
+        produto = get_list_or_404(models.Produto, id=produto_id) #TODO: deu ruim por aqui :(
         
-        carrinho = self.request.session['carrinho']
+        return HttpResponse(f'{produto.nome}{produto.id}')
 
-        if produto_id in carrinho:
-            pass
-        else:
-            carrinho[produto_id]
-        return  HttpResponse(f' {produto_id}')
+
 
 
 
