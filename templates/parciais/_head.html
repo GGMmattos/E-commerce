@@ -17,8 +17,12 @@
             <input type="text" class="searchProduct rounded" placeholder="Buscar produto" />
         </div>
         <div class="flex gap-3">
-            <button class="bg-blue-600 p-1.5 rounded loginButton">Entrar</button>
-            <button class="bg-green-700 p-1.5 rounded">Cadastrar</button>
+            <a href="#">
+                <button class="bg-blue-600 p-1.5 rounded loginButton" id="Entrar" >Entrar</button>
+            </a>
+            <a href="{% url 'perfil:criar' %}">
+                <button class="bg-green-700 p-1.5 rounded" id="Cadastrar">Cadastrar</button>
+            </a>
         </div>
     </header>
 </html>

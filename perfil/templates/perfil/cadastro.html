@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% include 'parciais/_head.html'%}
+    <div class="containerPage">
+        <div class="containerCadastro">
+            <div>Usuario: <input /></div>
+            <div>Data de nascinemto: <input /></div>
+            <div>CPF: <input /></div>
+            <div style="display: felx; flex-direction: row;">
+                Endereço: <input /> Nº: <input />
+            </div>
+            <div>CEP: <input /></div>
+            <div>Cidade: <input /> Estado: <input /></div>
+        </div>
+    </div>
+    {% include 'parciais/_footer.html' %}
+</html>
+
+<style>
+    .containerCadastro {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 80vh;
+        gap: 20px;
+        border: solid 2px gray;
+        width: 40vw;
+        background-color: gray;
+    }
+
+    .containerPage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #Cadastrar {
+        display: none;
+    }
+</style>
