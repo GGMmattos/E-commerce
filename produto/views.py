@@ -3,6 +3,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views import View
 from django.http import HttpResponse
+from django.contrib import messages
 from . import models
 
 
@@ -12,6 +13,7 @@ class ListaProdutos(ListView): # Listagem dos produtos na home
     model = models.Produto
     template_name = 'produto/lista.html'
     context_object_name = 'produtos'
+    
 
 class DetalheProduto(DetailView):
     model =models.Produto
@@ -19,12 +21,21 @@ class DetalheProduto(DetailView):
     context_object_name = 'produto'
     slug_url_kwarg = 'slug'
 
+
 class AdicionarAoCarrinho(View):
     def get(self, *args, **kwargs):
+    
         http_referer = self.request.META['HTTP_REFERER'] # produto será adicionado ao carrinho e irá voltar a paggina anterior.(bate e volta)
         produto_id = self.request.GET.get('id') #Verifica se o produto está cadastrado
 
         produto = get_list_or_404(models.Produto, id=produto_id)
+
+        if produto.estoque < 1:
+            messages.error(
+               self.request,
+               'Estoque insuficiente' 
+            )
+            return redirect(http_referer)
 
         if not self.request.session.get('carrinho'):
             self.request.session['carrinho'] = []
@@ -35,9 +46,9 @@ class AdicionarAoCarrinho(View):
         if produto_id in carrinho:
             pass
         else:
-            pass
-
+            carrinho[produto_id]
         return  HttpResponse(f' {produto_id}')
+
 
 
 class RemoverDoCarrinho(View):

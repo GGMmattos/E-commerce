@@ -13,7 +13,7 @@ class Produto(models.Model): # criação do modelo - TABELA DO BANCO
         upload_to='produto_imagem/%Y/&m/', blank=True, null=True)
     slug = models.SlugField(unique=True, blank=True, null=True)
     preco = models.FloatField()
-    estoque = models.IntegerField()
+    estoque = models.PositiveIntegerField(default=1)
 
     def get_preco_formatado(self):
         return f'R$ {self.preco:.2f}'.replace('.', ',')
