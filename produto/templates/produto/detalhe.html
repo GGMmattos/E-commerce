@@ -16,6 +16,7 @@
             </div>
         </div>
     </div>
+
     <div class="col-lg">
         <div class="mt-4 mt-lg-0">
             <h1 class="h2">{{produto.nome}}</h1>
@@ -25,8 +26,15 @@
 
             </p>
 
-            <form action="{% url 'produto:adicionaraocarrinho'%}" id="form-add-to-cart">
+            <form action="{% url 'produto:adicionaraocarrinho' %}" id="form-add-to-cart">
                 <div class="text-left">
+                    <div class="form-group">
+                        <select id="select-variacoes" name="id" class="form-control form-control-lg">
+                            <option data-preco="{{produto.preco}}" data-preco-promocional="{{produto.preco}}" value="{{produto.id}}">
+                                {{produto.nome}}
+                            </option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary btn-lg btn-block">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         Adicionar ao carrinho

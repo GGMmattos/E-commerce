@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_list_or_404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views import View
@@ -21,7 +21,24 @@ class DetalheProduto(DetailView):
 
 class AdicionarAoCarrinho(View):
     def get(self, *args, **kwargs):
-        return  HttpResponse('AdicionarAoCarrinho')
+        http_referer = self.request.META['HTTP_REFERER'] # produto será adicionado ao carrinho e irá voltar a paggina anterior.(bate e volta)
+        produto_id = self.request.GET.get('id') #Verifica se o produto está cadastrado
+
+        produto = get_list_or_404(models.Produto, id=produto_id)
+
+        if not self.request.session.get('carrinho'):
+            self.request.session['carrinho'] = []
+            self.request.session.save()
+        
+        carrinho = self.request.session['carrinho']
+
+        if produto_id in carrinho:
+            pass
+        else:
+            pass
+
+        return  HttpResponse(f' {produto_id}')
+
 
 class RemoverDoCarrinho(View):
     def get(self, *args, **kwargs):
