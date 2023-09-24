@@ -39,7 +39,7 @@ class AdicionarAoCarrinho(View):
 
         produto = get_list_or_404(models.Produto, id=produto_id) #TODO: deu ruim por aqui :(
         
-        return HttpResponse(f'{produto.nome}{produto.id}')
+        return  redirect(http_referer)
 
 
 
