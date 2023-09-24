@@ -3,20 +3,72 @@
     {% include 'parciais/_head.html'%}
     <div class="containerPage">
         <div class="containerCadastro">
-            <div>Usuario: <input /></div>
-            <div>Data de nascinemto: <input /></div>
-            <div>CPF: <input /></div>
-            <div style="display: felx; flex-direction: row;">
-                Endereço: <input /> Nº: <input />
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Usuário</span>
+                </div>
+                <input type="text" class="form-control" />
             </div>
-            <div>CEP: <input /></div>
-            <div>Cidade: <input /> Estado: <input /></div>
+            <div class="rowCadastro">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">CPF</span>
+                    </div>
+                    <input type="number" class="form-control" />
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Nascimento</span>
+                    </div>
+                    <input type="date" class="form-control" />
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Endereço</span>
+                </div>
+                <input type="text" class="form-control" />
+            </div>
+            <div class="rowCadastro">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Nº</span>
+                    </div>
+                    <input type="number" class="form-control" />
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">CEP</span>
+                    </div>
+                    <input type="number" class="form-control" />
+                </div>
+            </div>
+            <div class="rowCadastro">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Cidade</span>
+                    </div>
+                    <input type="text" class="form-control" />
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Estado</span>
+                    </div>
+                    <input type="text" class="form-control" />
+                </div>
+            </div>
         </div>
     </div>
     {% include 'parciais/_footer.html' %}
 </html>
 
 <style>
+    .rowCadastro {
+        display: flex; 
+        flex-direction: row;
+        gap: 5px;
+    }
+
     .containerCadastro {
         display: flex;
         flex-direction: column;
@@ -24,9 +76,7 @@
         justify-content: center;
         height: 80vh;
         gap: 20px;
-        border: solid 2px gray;
         width: 40vw;
-        background-color: gray;
     }
 
     .containerPage {
@@ -36,6 +86,10 @@
     }
 
     #Cadastrar {
+        display: none;
+    }
+
+    .searchProduct {
         display: none;
     }
 </style>
