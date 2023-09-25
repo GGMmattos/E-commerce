@@ -1,17 +1,18 @@
 from typing import Any
 from django.db.models.query import QuerySet
-from django.shortcuts import render, redirect, get_list_or_404, reverse
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404, reverse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views import View
 from django.http import HttpResponse
 from django.contrib import messages
-from . import models
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from . import models
+from .forms import NovoProdutoForms
 
 
 # Create your views here.
-
 class ListaProdutos(ListView): # Listagem dos produtos na home
     model = models.Produto
     template_name = 'produto/lista.html'
@@ -55,8 +56,24 @@ class AdicionarAoCarrinho(View):
         
         return  redirect(http_referer)
 
+@login_required
+def new(request):
+    if request.method == 'POST':
+        form = NovoProdutoForms(request.POST, request.FILES)
 
+        if form.is_valid():
+            item = form.save(commit=False) #Cria o item sem o created_by
+            item.created_by = request.user #Coloca o created_by como o usuário logado
+            item.save() #Salva no banco
 
+            return redirect('produto:detalhe', pk=item.id)
+    else:
+        form = NovoProdutoForms()
+
+    return render(request, 'produto/novoProduto.html', {
+        'form': form,
+        'title': 'Novo Produto',
+    })
 
 
 class RemoverDoCarrinho(View):
@@ -70,6 +87,3 @@ class Carrinho(View):
 class Finalizar(View):
     def get(self, *args, **kwargs):
         return  HttpResponse('Finalizar')
-
-
-

@@ -1,0 +1,83 @@
+{% include 'parciais/_head.html' %}
+
+{% block content %}
+<form method="post" action="." enctype="multipart/from-data">
+    {% csrf_token %}
+
+    <div class="containerCadastro">
+        <div class="esquerda">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Nome</span>
+                </div>
+                {{ form.nome }}
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Slug</span>
+                </div>
+                {{ form.slug }}
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Preço</span>
+                </div>
+                {{ form.preco }}
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Estoque</span>
+                </div>
+                {{ form.estoque }}
+            </div>
+        </div>
+        <div class="direita">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Imagem</span>
+                </div>
+                {{ form.imagem }}
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Descrição</span>
+                </div>
+                {{ form.descricao_curta }}
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Descrição detalhada</span>
+                </div>
+                {{ form.descricao_longa }}
+            </div>
+        </div>
+    </div>
+    {% if form.errors or form.non_field_errors %}
+        <div class="mb-3 p-6 bg-red-100 rounded-xl">
+            {% for field in form %}
+                {{ field.errors }}
+            {% endfor %}
+
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <input type="submit" value="Salvar" class="btn btn-primary" />
+</form>
+{% endblock %}
+
+{% include 'parciais/_footer.html' %}
+
+<style>
+    .btn-primary {
+        background-color: #007bff;
+    }
+
+    .containerCadastro {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+    }
+</style>

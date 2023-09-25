@@ -22,8 +22,11 @@
         </div>
 
         {% if request.user.is_authenticated %}
-            <div class="gap-3">
+            <div>
+                <a href="{% url 'produto:novo' %}">Adicionar produto</a>
+                &nbsp;
                 <a href="#">{{ user }}</a>
+                &nbsp;
                 <a href="{% url 'perfil:logout' %}">Sair</a>
             </div>
         {% else %}
