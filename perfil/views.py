@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from . import models
 from . import forms
 from .forms import SignupForm
+from .forms import PerfilForm
+
 
 
 # Create your views here.
@@ -22,29 +24,21 @@ def Cadastro (request):
         'form': form
     })
 
-class BasePerfil(View):
-    template_name = 'perfil/criar.html'
+def Cadastro_perfil (request): #TODO CRIADO PARA TEST RS
+    if request.method == 'POST': 
+        form = PerfilForm(request.POST)
 
-    def setup(self, *args, **kwargs):
-        super().setup(*args, **kwargs)
+        if form.is_valid(): 
+            form.save()
+            return redirect('/')
+    else:
+        form = PerfilForm() 
 
-        self.contexto = {
-            'userform': forms.UserForm(
-                data= self.request.POST or None
-            ), 
-            'perfilform': forms.PerfiForm(
-                data= self.request.POST or None
-            )
-        }
-
-        self.renderizar = render(self.request, self.template_name, self.contexto)
-    
-    def get(self, *args, **kwargs):
-        return self.renderizar
+    return render (request, 'perfil/cadastro.html',{ 
+        'form': form
+    })
 
 
-class Criar(BasePerfil):
-    pass
     
 class Atualizar(View):
     def get(self, *args, **kwargs):
