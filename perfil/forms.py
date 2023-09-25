@@ -26,18 +26,19 @@ class SignupForm(UserCreationForm): #Função criada para o cadastro de usuário
         model = User
         fields = ('username', 'email', 'password1', 'password2')
 
-    email = forms.CharField(widget=forms.EmailInput(attrs={
+    #Daqui pra baixo é estilização do css dos campos que já vem no modelo User
+    email = forms.CharField(widget=forms.EmailInput(attrs={ #Estilização do campo email
         'class': 'form-control'
     }))
 
-    username = forms.CharField(widget=forms.TextInput(attrs={
+    username = forms.CharField(widget=forms.TextInput(attrs={ #Estilização do campo username
         'class': 'form-control'
     }))
 
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={ #Estilização do campo password1
         'class': 'form-control'
     }))
 
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={ #Estilização do campo password2
         'class': 'form-control'
     }))
