@@ -1,6 +1,6 @@
 from typing import Any
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from . import models
 
@@ -24,6 +24,15 @@ class SignupForm(UserCreationForm): #Função criada para o cadastro de usuário
     }))
 
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={ #Estilização do campo password2
+        'class': 'form-control'
+    }))
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={ #Estilização do campo username
+        'class': 'form-control'
+    }))
+
+    password = forms.CharField(widget=forms.PasswordInput(attrs={ #Estilização do campo password1
         'class': 'form-control'
     }))
 

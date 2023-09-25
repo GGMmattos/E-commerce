@@ -50,8 +50,10 @@ class Perfil(models.Model):
         )
     )
 
+    USERNAME_FIELD = 'usuario'
+
     def __str__(self):
-        return f'{self.usuario}'
+        return f'{self.usuario.username} Profile'
     
 
     def clean(self):

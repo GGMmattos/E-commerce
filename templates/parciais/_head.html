@@ -16,14 +16,21 @@
         <div>
             <input type="text" class="searchProduct rounded" placeholder="Buscar produto" />
         </div>
-        <div class="flex gap-3">
-            <a href="#">
-                <button class="bg-blue-600 p-1.5 rounded loginButton" id="Entrar" >Entrar</button>
-            </a>
-            <a href="{% url 'perfil:criar' %}">
-                <button class="bg-green-700 p-1.5 rounded" id="Cadastrar">Cadastrar</button>
-            </a>
-        </div>
+        {% if request.user.is_authenticated %}
+            <div class="gap-3">
+                <a href="#">{{ user }}</a>
+                <a href="{% url 'perfil:logout' %}">Sair</a>
+            </div>
+        {% else %}
+            <div class="flex gap-3">
+                <a href="{% url 'perfil:login' %}">
+                    <button class="bg-blue-600 p-1.5 rounded loginButton" id="Entrar" >Entrar</button>
+                </a>
+                <a href="{% url 'perfil:criar' %}">
+                    <button class="bg-green-700 p-1.5 rounded" id="Cadastrar">Cadastrar</button>
+                </a>
+            </div>
+        {% endif %}
     </header>
 </html>
 

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% include 'parciais/_head.html'%}
+    <form name="cadastro" method="POST" action=".">
+        {% csrf_token %}
+
+        <div class="containerPage">
+            <div class="containerCadastro">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Usuário</span>
+                    </div>
+                    {{ form.username }}
+                </div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Senha</span>
+                    </div>
+                    {{ form.password }}
+                </div>
+                {% if form.errors or form.non_field_errors %}
+                    <div class="mb-3 p-6 bg-red-100 rounded-xl">
+                        {% for field in form %}
+                            {{ field.errors }}
+                        {% endfor %}
+
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+                <input type="submit" value="Enviar" class="btn btn-success" />
+            </div>
+        </div>
+    </form>
+    {% include 'parciais/_footer.html' %}
+</html>
+
+<style>
+    .btn-success {
+        background-color: green;
+    }
+
+    .rowCadastro {
+        display: flex; 
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    .containerCadastro {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 80vh;
+        gap: 20px;
+        width: 40vw;
+    }
+
+    .containerPage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #Entrar {
+        display: none;
+    }
+
+    .searchProduct {
+        display: none;
+    }
+</style>
