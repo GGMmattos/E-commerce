@@ -17,7 +17,7 @@ class ListaProdutos(ListView): # Listagem dos produtos na home
     model = models.Produto
     template_name = 'produto/lista.html'
     context_object_name = 'produtos'
-    paginate_by = 2
+    paginate_by = 6
 
 class Busca(ListaProdutos):
     def get_queryset(self, *args, **kwargs):
@@ -59,7 +59,7 @@ class AdicionarAoCarrinho(View):
 @login_required
 def new(request):
     if request.method == 'POST':
-        form = NovoProdutoForms(request.POST, request.FILES)
+        form = NovoProdutoForms(data=request.POST, files=request.FILES)
 
         if form.is_valid():
             item = form.save(commit=False) #Cria o item sem o created_by

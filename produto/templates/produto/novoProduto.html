@@ -1,7 +1,7 @@
 {% include 'parciais/_head.html' %}
 
 {% block content %}
-<form method="post" action="." enctype="multipart/from-data">
+<form method="POST" action="." enctype="multipart/form-data">
     {% csrf_token %}
 
     <div class="containerCadastro">
