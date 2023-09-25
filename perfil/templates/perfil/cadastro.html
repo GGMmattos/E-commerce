@@ -1,4 +1,14 @@
-<!DOCTYPE html>
+{% include 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block conteudo%}
+{{userform}}
+{%  endblock %}
+
+
+
+<!-- 
+{% comment %} <!DOCTYPE html>
 <html lang="en">
     {% include 'parciais/_head.html'%}
     <div class="containerPage">
@@ -38,4 +48,4 @@
     #Cadastrar {
         display: none;
     }
-</style>
+</style> {% endcomment %} -->
