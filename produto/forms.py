@@ -4,7 +4,7 @@ from .models import Produto
 class NovoProdutoForms(forms.ModelForm):
     class Meta:
         model = Produto
-        fields = ('nome', 'descricao_curta', 'descricao_longa', 'imagem', 'preco', 'estoque', 'slug')
+        fields = ('nome', 'descricao_curta', 'descricao_longa', 'imagem', 'preco', 'estoque')
 
     nome = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control'
@@ -19,10 +19,6 @@ class NovoProdutoForms(forms.ModelForm):
     }))
 
     preco = forms.CharField(widget=forms.NumberInput(attrs={
-        'class': 'form-control'
-    }))
-
-    slug = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control'
     }))
 
