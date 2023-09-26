@@ -56,6 +56,13 @@ class AdicionarAoCarrinho(View):
     
         produto = get_object_or_404(models.Produto, id=produto_id) #verifica o id do produto que é desejado adicionar ao carrinho e pega o objeto do mesmo no banco.
 
+        if produto.estoque < 1: # verifica se há produto no estoque.
+            messages.error(
+                self.request,
+                'Estoque indisponível'
+            )
+            return redirect(http_referer)
+
         if not self.request.session.get('carrinho'):
             self.request.session['carrinho'] = {}
             self.request.session.save()
