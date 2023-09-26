@@ -18,7 +18,7 @@ class ListaProdutos(ListView): # Listagem dos produtos na home
     model = models.Produto
     template_name = 'produto/lista.html'
     context_object_name = 'produtos'
-    paginate_by = 6
+    paginate_by = 12
 
 class Busca(ListaProdutos):
     def get_queryset(self, *args, **kwargs):
