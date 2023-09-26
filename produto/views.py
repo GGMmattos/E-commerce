@@ -139,6 +139,24 @@ def delete(request, pk):
     
     return redirect ('produto:lista')
 
+@login_required
+def edit(request, pk): #Reutilizando a função de cadastro
+    item = get_object_or_404(Produto, pk=pk) #Buscando um produto que já existe no banco
+
+    if request.method == 'POST':
+        form = NovoProdutoForms(data=request.POST, files=request.FILES, instance=item) #Reutilizando a função de cadastro
+
+        if form.is_valid():
+            item.save()
+
+            return redirect('produto:detalhe', item.slug)
+    else:
+        form = NovoProdutoForms(instance=item) #Reutilizando a função de cadastro
+    
+    return render (request, 'produto/novoProduto.html', { #Reutilizando o html para o cadastro do produto
+        'form': form
+    })
+
 class RemoverDoCarrinho(View):
     def get(self, *args, **kwargs):
         return  HttpResponse('RemoverDoCarrinho')
