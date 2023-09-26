@@ -169,7 +169,7 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 7
 SESSION_SAVE_EVERY_REQUEST = False
 
 # Serializer - Padrão JSON
-# SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 # Para sessions em arquivos ao invés da base de dados
 # SESSION_ENGINE = "django.contrib.sessions.backends.file"

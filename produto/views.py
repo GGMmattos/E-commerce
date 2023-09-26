@@ -11,6 +11,7 @@ from django.db.models import Q
 from . import models
 from .forms import NovoProdutoForms
 from produto.models import Produto
+from pprint import pprint
 
 
 # Create your views here.
@@ -39,7 +40,10 @@ class DetalheProduto(DetailView):
 
 
 class AdicionarAoCarrinho(View):
-    def get(self, *args, **kwargs):    
+    def get(self, *args, **kwargs):
+        # if self.request.session.get('carrinho'):
+        #     del self.request.session['carrinho']
+        #     self.request.session.save()   
     
         http_referer = self.request.META.get(
             'HTTP_REFERER',
@@ -50,16 +54,22 @@ class AdicionarAoCarrinho(View):
         if not produto_id: # verifica se o produto está cadastrado ou não.
             messages.error(
                 self.request,
-                'produto não existe'
+                'Produto não existe'
             )
             return redirect(http_referer) # Realiza o "bate e volta" ao clicar em adicionar no carrinho
     
         produto = get_object_or_404(models.Produto, id=produto_id) #verifica o id do produto que é desejado adicionar ao carrinho e pega o objeto do mesmo no banco.
+        produto_estoque = produto.estoque
+        produto_nome = produto.nome
+        preco_unitario = produto.preco
+        quantidade = 1
+        slug = produto.slug
+        imagem = produto.imagem
 
         if produto.estoque < 1: # verifica se há produto no estoque.
             messages.error(
                 self.request,
-                'Estoque indisponível'
+                'Estoque Insuficiente'
             )
             return redirect(http_referer)
 
@@ -70,12 +80,38 @@ class AdicionarAoCarrinho(View):
         carrinho = self.request.session['carrinho']
 
         if produto_id in carrinho: # se o produto existe no carrinho
-            pass
-        else: # se o produto não existe no carrinho
-            pass
+            quantidade_carrinho = carrinho[produto_id]['quantidade'] #Adicionando mais um produto no carrinho
+            quantidade_carrinho += 1 
 
- 
-        return  HttpResponse(f'{produto.nome} {produto.id}')
+            if produto_estoque < quantidade_carrinho:
+                messages.warning(
+                    self.request,
+                    f'Estoque insuficiente para {quantidade_carrinho}x no produto "{produto_nome}". Foi adicionado {produto_estoque}x no seu carrinho.'
+                )
+                quantidade_carrinho = produto_estoque
+
+            print('QUANTIDADE', quantidade_carrinho)
+
+            carrinho[produto_id]['quantidade'] = quantidade_carrinho
+            carrinho[produto_id]['preco_quantitativo'] = preco_unitario * quantidade_carrinho          
+        else: # se o produto não existe no carrinho
+            carrinho[produto_id] = {
+            'produto_id': produto_id,
+            'produto_nome': produto_nome,
+            'preco_unitario': preco_unitario,
+            'produto_estoque' :produto_estoque,
+            'quantidade': 1,
+            'slug': slug,
+            'imagem': imagem,
+            }
+        self.request.session.save() # para salvarmos a sessão.
+
+        messages.success( # Mensagem de adicionado com êxito.
+            self.request,
+            f'Produto {produto_nome} adicionado ao seu carrinho {carrinho[produto_id]["quantidade"]}x'
+        )        
+
+        return  redirect(http_referer)
 
 @login_required
 def new(request):
