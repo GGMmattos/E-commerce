@@ -39,23 +39,36 @@ class DetalheProduto(DetailView):
 
 
 class AdicionarAoCarrinho(View):
-    def get(self, *args, **kwargs):
+    def get(self, *args, **kwargs):    
+    
         http_referer = self.request.META.get(
             'HTTP_REFERER',
-            reverse('produto:lista')
-            )
-        produto_id = self.request.GET.get('id')
+            reverse('produto:lista') 
+            ) # pega como referencia a tela anterior
+        produto_id = self.request.GET.get('id') #verifica o ID da URL
 
-        if not produto_id:
+        if not produto_id: # verifica se o produto está cadastrado ou não.
             messages.error(
                 self.request,
                 'produto não existe'
             )
-            return redirect(http_referer) 
+            return redirect(http_referer) # Realiza o "bate e volta" ao clicar em adicionar no carrinho
+    
+        produto = get_object_or_404(models.Produto, id=produto_id) #verifica o id do produto que é desejado adicionar ao carrinho e pega o objeto do mesmo no banco.
 
-        produto = get_list_or_404(models.Produto, id=produto_id) #TODO: deu ruim por aqui :(
+        if not self.request.session.get('carrinho'):
+            self.request.session['carrinho'] = {}
+            self.request.session.save()
         
-        return  redirect(http_referer)
+        carrinho = self.request.session['carrinho']
+
+        if produto_id in carrinho: # se o produto existe no carrinho
+            pass
+        else: # se o produto não existe no carrinho
+            pass
+
+ 
+        return  HttpResponse(f'{produto.nome} {produto.id}')
 
 @login_required
 def new(request):
