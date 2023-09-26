@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from . import models
 from .forms import NovoProdutoForms
+from produto.models import Produto
 
 
 # Create your views here.
@@ -66,7 +67,7 @@ def new(request):
             item.created_by = request.user #Coloca o created_by como o usuário logado
             item.save() #Salva no banco
 
-            return redirect('produto:detalhe', pk=item.id)
+            return redirect('produto:detalhe', item.slug)
     else:
         form = NovoProdutoForms()
 
@@ -75,6 +76,12 @@ def new(request):
         'title': 'Novo Produto',
     })
 
+@login_required
+def delete(request, pk):
+    item = get_object_or_404(Produto, pk=pk)
+    item.delete()
+    
+    return redirect ('produto:lista')
 
 class RemoverDoCarrinho(View):
     def get(self, *args, **kwargs):

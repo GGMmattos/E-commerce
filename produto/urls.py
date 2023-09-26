@@ -12,4 +12,5 @@ urlpatterns = [
     path('finalizar/', views.Finalizar.as_view(), name='finalizar'),
     path('busca/', views.Busca.as_view(), name='busca'),
     path('novoProduto/', views.new, name='novo'),
+    path('<int:pk>/delete/', views.delete, name='delete')
 ]

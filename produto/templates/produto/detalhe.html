@@ -40,10 +40,13 @@
                         Adicionar ao carrinho
                     </button>
                 </div>
-
             </form>
 
-
+            {% if request.user.is_authenticated %}
+                <div class="mt-6 p-6 bg-white rounded-xl">
+                    <a href="{% url 'produto:delete' produto.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl">Excluir</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -58,3 +61,9 @@
 </div>
 
 {% endblock %}
+
+<style>
+    .btn-primary {
+        background-color: #17a2b8;
+    }
+</style>

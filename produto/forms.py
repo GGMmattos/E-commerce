@@ -22,8 +22,6 @@ class NovoProdutoForms(forms.ModelForm):
         'class': 'form-control'
     }))
 
-    
-
     slug = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control'
     }))
