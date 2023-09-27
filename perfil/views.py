@@ -18,7 +18,7 @@ def Cadastro (request):
 
         if form.is_valid(): #Salva os dados se eles forem válidos
             form.save()
-            return redirect('/')
+            return redirect('perfil:login')
     else:
         form = SignupForm() 
 

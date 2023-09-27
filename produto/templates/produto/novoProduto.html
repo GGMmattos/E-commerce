@@ -24,14 +24,14 @@
                 </div>
                 {{ form.estoque }}
             </div>
-        </div>
-        <div class="direita">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Imagem</span>
                 </div>
                 {{ form.imagem }}
             </div>
+        </div>
+        <div class="direita">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Descrição</span>
@@ -44,6 +44,7 @@
                 </div>
                 {{ form.descricao_longa }}
             </div>
+            <input class="btn btn-primary" type="submit" value="Salvar" />
         </div>
     </div>
     {% if form.errors or form.non_field_errors %}
@@ -55,23 +56,48 @@
             {{ form.non_field_errors }}
         </div>
     {% endif %}
-
-    <input type="submit" value="Salvar" class="btn btn-primary" />
 </form>
 {% endblock %}
 
 {% include 'parciais/_footer.html' %}
 
 <style>
-    .btn-primary {
-        background-color: #007bff;
-    }
-
     .containerCadastro {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
         gap: 30px;
+        height: 80vh;
+    }
+
+    .esquerda {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .direita {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .form-inline {
+        align-items: inherit;
+    }
+
+    [type=submit] {
+        background-color: #17a2b8;
+    }
+
+    .qtdCarrinho {
+        bottom: 95vh;
     }
 </style>

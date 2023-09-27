@@ -4,72 +4,123 @@
 
 {%block conteudo%}
 
-<div class="row">
-    <div class="col-lg">
-        <div class="row no-gutters">
+<div class="containerPage">
+    <div class="content">
+        <div class="row">
+            <div class="col-lg">
+                <div class="row no-gutters">
+                    <div class="col-lg-12">
+        
+                        {%if produto.imagem %}
+                        <img class="img-fluid" src="{{produto.imagem.url}}">
+                        {%endif%}
+        
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-lg">
+                <div class="mt-4 mt-lg-0">
+                    <h1 class="h2">{{produto.nome}}</h1>
+                    <p class="lead">{{produto.descricao_curta | linebreaks}}</p>
+                    <p class="lead">
+                        <span id="variation-preco" class="lead product-price">{{produto.preco |formata_preco }}</span>
+        
+                    </p>
+        
+                    <form action="{% url 'produto:adicionaraocarrinho' %}" id="form-add-to-cart">
+                        <div class="text-left">
+                            <div class="form-group">
+                                <select id="select-variacoes" name="id" class="form-control form-control-lg">
+                                    <option data-preco="{{produto.preco}}" data-preco-promocional="{{produto.preco}}" value="{{produto.id}}">
+                                        {{produto.nome}}
+                                    </option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                Adicionar ao carrinho
+                            </button>
+                        </div>
+                    </form>
+        
+                    {% if request.user.is_superuser %}
+                        <div class="adminButtons">
+                            <a href="{% url 'produto:edit' produto.id %}" class="btn btn-secondary">Editar</a>
+                            <a href="{% url 'produto:delete' produto.id %}" class="btn btn-danger">Excluir</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
             <div class="col-lg-12">
-
-                {%if produto.imagem %}
-                <img class="img-fluid" src="{{produto.imagem.url}}">
-                {%endif%}
-
+                <div class="mt-5 mb-5">
+                    <h2 class="text-center"><strong>Descrição do Produto</strong></h2>
+                    <br>
+                    {{produto.descricao_longa|linebreaks}}
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="col-lg">
-        <div class="mt-4 mt-lg-0">
-            <h1 class="h2">{{produto.nome}}</h1>
-            <p class="lead">{{produto.descricao_curta | linebreaks}}</p>
-            <p class="lead">
-                <span id="variation-preco" class="lead product-price">{{produto.preco |formata_preco }}</span>
-
-            </p>
-
-            <form action="{% url 'produto:adicionaraocarrinho' %}" id="form-add-to-cart">
-                <div class="text-left">
-                    <div class="form-group">
-                        <select id="select-variacoes" name="id" class="form-control form-control-lg">
-                            <option data-preco="{{produto.preco}}" data-preco-promocional="{{produto.preco}}" value="{{produto.id}}">
-                                {{produto.nome}}
-                            </option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">
-                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                        Adicionar ao carrinho
-                    </button>
-                </div>
-            </form>
-
-            {% if request.user.is_authenticated %}
-                <div class="flex-row">
-                    <div class="mt-6 p-6 bg-white rounded-xl">
-                        <a href="{% url 'produto:delete' produto.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-red-500 text-white rounded-xl">Excluir</a>
-                    </div>
-                    <div class="mt-6 p-6 bg-white rounded-xl">
-                        <a href="{% url 'produto:edit' produto.id %}" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-blue-500 text-white rounded-xl">Editar</a>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-12">
-        <div class="mt-5 mb-5">
-            <h2 class="text-center"><strong>Descrição do Produto</strong></h2>
-            <br>
-            {{produto.descricao_longa|linebreaks}}
-        </div>
+    
+    <div class="authorNames">
+        GGMmattos | mhsfn00
     </div>
 </div>
 
 {% endblock %}
 
 <style>
+    .adminButtons {
+        display: flex;
+        flex-direction: row;
+        border: 2px solid #ced4da;
+        border-radius: 8px;
+        margin-top: 20px;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        gap: 20px;
+    }
+
+    .content {
+        padding: 0 200px 0 200px;
+    }
+
     .btn-primary {
         background-color: #17a2b8;
+    }
+
+    header {
+        top: 0;
+        position: fixed;
+    }
+
+    #AuthorNames {
+        display: none;
+    }
+
+    .authorNames {
+        display: flex;
+        justify-content: right;
+        width: 100%;
+    }
+
+    .qtdCarrinho {
+        bottom: 95vh;
+    }
+
+    .col-lg, .col-lg-12 {
+        position: inherit;
+    }
+
+    .containerPage {
+        margin-top: 80px;
+    }
+
+    .row {
+        margin: 0;
     }
 </style>

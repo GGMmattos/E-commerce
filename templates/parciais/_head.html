@@ -6,63 +6,98 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdn.tailwindcss.com"></script>
-        <title>{% block title %} E-Commerce{% endblock %}</title>
+        <title>{% block title %}E-Commerce{% endblock %}</title>
 
         <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.css'%}">
         <link rel="stylesheet" href="{% static 'assets/custom/css/style.css'%}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
 
     </head>
-    <header class="p-3 m-0 bg-black text-white flex justify-between items-center">
-        <a class= "" href = "{% url 'produto:lista' %}">E-Commerce</a>
+    <header class="w-100 p-3 m-0 bg-black text-white flex justify-between items-center">
+        <a class="btn btn-success" href = "{% url 'produto:lista' %}">E-Commerce</a>
 
-        <div>
-            <form method='GET' action="{% url 'produto:busca' %}">
-                <input name="termo" value= "{{ request.GET.termo }}"type="search" class="searchProduct rounded" placeholder="Buscar produto" arial-labe="Busca"/>
-                <button class="btn btn-info btn-sm" type="submit">Buscar</button>
+        <div class="barraBusca">
+            <form class="form-inline my-2 my-lg-0" method='GET' action="{% url 'produto:busca' %}">
+                <input name="termo" value= "{{ request.GET.termo }}"type="search" class="form-control" placeholder="Buscar produto" arial-labe="Busca"/>
+                <button class="btnBusca btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>
 
         {% if request.session.carrinho %}
-            <li class="">
-                <a  href="{% url 'produto:carrinho' %}">
-                        <strong> Carrinho {{ request.session.carrinho | card_total_qtd }}x</strong>
-                </a>
-            </li>
+            <a class="containerCarrinho" href="{% url 'produto:carrinho' %}">
+                <i class="fas fa-shopping-cart"></i>
+                <p class="qtdCarrinho">{{ request.session.carrinho | card_total_qtd }}</p>
+            </a>
         {% endif %}
 
         {% if request.user.is_authenticated %}
-            <div>
-                <a href="{% url 'produto:novo' %}">Adicionar produto</a>
+            <div class="gap-5">
+                <a class="btn btn-secondary" href="#">{{ user }}</a>
                 &nbsp;
-                <a href="#">{{ user }}</a>
+                {% if request.user.is_superuser %}
+                    <a  class="btn btn-primary" href="{% url 'produto:novo' %}">
+                        <i class="fas fa-plus"></i> Produto
+                    </a>
+                {% endif %}
                 &nbsp;
-                <a href="{% url 'perfil:logout' %}">Sair</a>
+                <a class="btn btn-danger" href="{% url 'perfil:logout' %}">Sair</a>
             </div>
         {% else %}
-
             <div class="flex gap-3">
                 <a href="{% url 'perfil:login' %}">
-                    <button class="bg-blue-600 p-1.5 rounded loginButton" id="Entrar" >Entrar</button>
+                    <button class="btn btn-primary" id="Entrar" >Entrar</button>
                 </a>
                 <a href="{% url 'perfil:criar' %}">
-                    <button class="bg-green-700 p-1.5 rounded" id="Cadastrar">Cadastrar</button>
+                    <button class="btn btn-success" id="Cadastrar">Cadastrar</button>
                 </a>
             </div>
-
-
         {% endif %}
     </header>
 </html>
 
 <style>
-    .loginButton {
-        background-color: #17a2b8;
+    .containerCarrinho {
+        position: fixed;
+        left: 70vw;
     }
 
-    .searchProduct {
-        width: 30vw;
-        height: 3vh;
-        color: black;
-        padding: 3px;
+    .containerCarrinho:hover {
+        color: white;
+    }
+
+    .qtdCarrinho {
+        background-color: red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        height: 18px;
+        width: 18px;
+        font-weight: bold;
+        position: fixed;
+        left: 71vw;
+        bottom: 95vh;
+    }
+
+    .btnBusca {
+        background-color: #17a2b8;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .btnBusca:hover {
+        
+    }
+
+    .form-inline .form-control {
+        width: 90%;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .barraBusca {
+        width: 35%;
+        position: fixed;
+        left: 25vw;
     }
 </style>
