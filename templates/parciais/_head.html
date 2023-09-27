@@ -30,6 +30,11 @@
                 <a href="{% url 'perfil:logout' %}">Sair</a>
             </div>
         {% else %}
+            <li class="">
+                <a  href="{% url 'produto:carrinho' %}">
+                        <strong>CARRINHO</strong>
+                </a>
+            </li>
             <div class="flex gap-3">
                 <a href="{% url 'perfil:login' %}">
                     <button class="bg-blue-600 p-1.5 rounded loginButton" id="Entrar" >Entrar</button>
@@ -38,6 +43,8 @@
                     <button class="bg-green-700 p-1.5 rounded" id="Cadastrar">Cadastrar</button>
                 </a>
             </div>
+
+
         {% endif %}
     </header>
 </html>

@@ -1,0 +1,72 @@
+{% load omfilters %}
+
+{% include 'base.html' %}
+
+{% block conteudo%}
+
+{% if carrinho %}
+
+<div class="row mt-3">
+    <div class="col">
+        <h3>Carrinho de compras</h3>
+        <p class="lead">Os produtos, quantidades e preços que você escolheu.</p>
+
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th class="d-none d-lg-block">Imagem</th>
+                    <th>Produto</th>
+                    <th>QTD.</th>
+                    <th>Total</th>
+                </tr>
+
+                {% for produto in carrinho.values %} <!-- for para percorrer os produtos do carrinho-->
+                <tr>
+                    <td class="d-none d-lg-block">
+                        <img class="cart-img" src="{{produto.imagem}}">
+                    </td>
+                    <td>{{produto.produto_nome}}</td>
+                    <td>{{produto.quantidade}}x</td>
+                    <td>{{produto.preco_quantitativo}}</td> # TODO: se ativa a função de formatação da erro
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div class="row mt-3">
+    <div class="col-lg">
+        <p class='lead'>Total no carrinho</p>
+
+        <div class='table-responsive'>
+            <table class="table">
+                <tr>
+                    <td class="font-weight-bold">Total</td>
+                    <td>R$100000</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg mt-auto">
+        <a class="btn btn-lg btn-block btn-primary" href="#">
+            Finalizar a compra
+        </a>
+    </div>
+</div>
+
+{% else %}
+
+<div class="row mt-3">
+    <div class="col">
+        <h3> Carrinho vazio</h3>
+        <P class="lead"> Não há produtos em seu carrinho</P>
+    </div>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

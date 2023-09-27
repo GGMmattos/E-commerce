@@ -41,7 +41,7 @@ class DetalheProduto(DetailView):
 
 class AdicionarAoCarrinho(View):
     def get(self, *args, **kwargs):
-        # if self.request.session.get('carrinho'):
+        # if self.request.session.get('carrinho'): // CODIGO PARA APAGAR O CARRINHO
         #     del self.request.session['carrinho']
         #     self.request.session.save()   
     
@@ -99,6 +99,7 @@ class AdicionarAoCarrinho(View):
             'produto_id': produto_id,
             'produto_nome': produto_nome,
             'preco_unitario': preco_unitario,
+            'preco_quantitativo': preco_unitario,
             'produto_estoque' :produto_estoque,
             'quantidade': 1,
             'slug': slug,
@@ -145,7 +146,11 @@ class RemoverDoCarrinho(View):
 
 class Carrinho(View):
     def get(self, *args, **kwargs):
-        return  HttpResponse('Carrinho')
+        contexto = {
+            'carrinho': self.request.session.get('carrinho', {})
+        }
+
+        return render(self.request, 'produto/carrinho.html', contexto)
 
 class Finalizar(View):
     def get(self, *args, **kwargs):
