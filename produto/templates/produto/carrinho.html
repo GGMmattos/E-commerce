@@ -1,11 +1,9 @@
 {% load omfilters %}
-
+{% load static %}
 {% include 'base.html' %}
-
 {% block conteudo%}
 
 {% if carrinho %}
-
 <div class="row mt-3">
     <div class="col">
         <h3>Carrinho de compras</h3>
@@ -23,11 +21,22 @@
                 {% for produto in carrinho.values %} <!-- for para percorrer os produtos do carrinho-->
                 <tr>
                     <td class="d-none d-lg-block">
-                        <img class="cart-img" src="{{produto.imagem}}">
+                        <img class="cart-img" src="{% get_media_prefix %}{{produto.imagem}}">
                     </td>
-                    <td>{{produto.produto_nome}}</td>
-                    <td>{{produto.quantidade}}x</td>
-                    <td>{{produto.preco_quantitativo}}</td> # TODO: se ativa a função de formatação da erro
+                    <td> 
+                        <a href="{% url 'produto:detalhe' produto.slug %}">
+                            {{produto.produto_nome}}
+                        <a/>
+
+                        <a style="color: crimson;" href="{% url 'produto:removerdocarrinho' %}?id={{produto.produto_id}}">
+                            <strong>  Remover</strong>
+                            
+                        </a>
+                    </td>
+                    </a>
+
+                    <td>{{produto.quantidade}}</td>
+                    <td>{{produto.preco_quantitativo | formata_preco}}</td>
                 </tr>
                 {% endfor %}
 
@@ -45,7 +54,7 @@
             <table class="table">
                 <tr>
                     <td class="font-weight-bold">Total</td>
-                    <td>R$100000</td>
+                    <td>{{ carrinho | card_total | formata_preco}}</td>
                 </tr>
             </table>
         </div>

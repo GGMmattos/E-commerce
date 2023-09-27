@@ -41,7 +41,7 @@ class DetalheProduto(DetailView):
 
 class AdicionarAoCarrinho(View):
     def get(self, *args, **kwargs):
-        # if self.request.session.get('carrinho'): // CODIGO PARA APAGAR O CARRINHO
+        # if self.request.session.get('carrinho'): 
         #     del self.request.session['carrinho']
         #     self.request.session.save()   
     
@@ -114,6 +114,7 @@ class AdicionarAoCarrinho(View):
 
         return  redirect(http_referer)
 
+
 @login_required
 def new(request):
     if request.method == 'POST':
@@ -132,6 +133,7 @@ def new(request):
         'form': form,
         'title': 'Novo Produto',
     })
+
 
 @login_required
 def delete(request, pk):
@@ -160,6 +162,37 @@ def edit(request, pk): #Reutilizando a função de cadastro
 
 class RemoverDoCarrinho(View):
     def get(self, *args, **kwargs):
+
+        http_referer = self.request.META.get(
+            'HTTP_REFERER',
+            reverse('produto:lista') 
+            ) 
+        
+        produto_id = self.request.GET.get('id')
+
+        if not produto_id: # caso o produto que está no carrinho não exista
+            return redirect(http_referer) 
+        
+        if not self.request.session.get('carrinho'): #caso o carrinho não exista
+            return redirect(http_referer) 
+        
+        if produto_id not in self.request.session['carrinho']: # caso o produto não exista no carrinho
+            return redirect(http_referer)
+        
+        carrinho = self.request.session['carrinho'][produto_id]
+
+        messages.success(
+            self.request,
+            f'Produto "{carrinho["produto_nome"]} removido do seu carrinho'
+        )
+        del self.request.session['carrinho'][produto_id]
+        self.request.session.save()
+        return redirect(http_referer)
+
+
+
+
+
         return  HttpResponse('RemoverDoCarrinho')
 
 class Carrinho(View):

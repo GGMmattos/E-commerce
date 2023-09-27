@@ -1,4 +1,5 @@
 {% load static %}
+{% load omfilters%}
 
 <html>
     <head>
@@ -30,11 +31,15 @@
                 <a href="{% url 'perfil:logout' %}">Sair</a>
             </div>
         {% else %}
+
+        {% if request.session.carrinho%}
             <li class="">
                 <a  href="{% url 'produto:carrinho' %}">
-                        <strong>CARRINHO</strong>
+                        <strong> Carrinho {{ request.session.carrinho | card_total_qtd }}x</strong>
                 </a>
             </li>
+        {% endif%}
+
             <div class="flex gap-3">
                 <a href="{% url 'perfil:login' %}">
                     <button class="bg-blue-600 p-1.5 rounded loginButton" id="Entrar" >Entrar</button>
