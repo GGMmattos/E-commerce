@@ -22,6 +22,14 @@
             </form>
         </div>
 
+        {% if request.session.carrinho %}
+            <li class="">
+                <a  href="{% url 'produto:carrinho' %}">
+                        <strong> Carrinho {{ request.session.carrinho | card_total_qtd }}x</strong>
+                </a>
+            </li>
+        {% endif %}
+
         {% if request.user.is_authenticated %}
             <div>
                 <a href="{% url 'produto:novo' %}">Adicionar produto</a>
@@ -31,14 +39,6 @@
                 <a href="{% url 'perfil:logout' %}">Sair</a>
             </div>
         {% else %}
-
-        {% if request.session.carrinho%}
-            <li class="">
-                <a  href="{% url 'produto:carrinho' %}">
-                        <strong> Carrinho {{ request.session.carrinho | card_total_qtd }}x</strong>
-                </a>
-            </li>
-        {% endif%}
 
             <div class="flex gap-3">
                 <a href="{% url 'perfil:login' %}">
