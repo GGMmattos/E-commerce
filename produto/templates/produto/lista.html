@@ -6,13 +6,13 @@
         {% for produto in produtos  %}
             <div class="card">
                 {% if produto.imagem %}
-                <a href="{% url 'produto:detalhe' produto.slug %}"> <!-- utilizado para redirecionar ao slug correspondente ao clicar na imagem-->
-                <img class="card-img-top" src="{{produto.imagem.url}}" alt=" {{produto.nome}}">
-                </a>
+                    <a href="{% url 'produto:detalhe' produto.slug %}"> <!-- utilizado para redirecionar ao slug correspondente ao clicar na imagem-->
+                    <img class="card-img-top" src="{{produto.imagem.url}}" alt=" {{produto.nome}}">
+                    </a>
                 {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title">{{produto.nome}}</h5>
-                    <p class="card-text">{{produto.descricao_curta}}</p>
+                    <h5 class="card-title"><Strong>{{produto.nome}} </Strong></h5>
+                    <p style="font-size:smaller;" class="card-text">{{produto.descricao_curta}}</p>
                 </div>
                 <div class="card-footer bg-transparent border-top-light-custom text-center">
                     <div class="container product-price-block text-center">
